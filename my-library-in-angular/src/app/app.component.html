@@ -1,0 +1,21 @@
+<h1>Probando nuestra libreria de stencil</h1>
+
+<body>
+  <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+</body>
+
+<script>
+  (async () => {
+    await customElements.whenDefined('my-component');
+    const myComponent = document.getElementsByTagName('my-component')[0];
+    setTimeout(() => {
+      myComponent.first = 'RubenFGR';
+      myComponent.internal = 'ESTO NO FUNCIONA YA QUE ES UN ESTADO INTERNO';
+    }, 3000);
+    var exposedMethodValue = await myComponent.getMessage();
+    console.log('[index.html] myComponent.getMessage(): ', exposedMethodValue);
+    myComponent.addEventListener('onMessage', event => {
+      console.log('[index.html] Evento "onMessage" recibido, propiedad event.detail: ', event.detail);
+    });
+  })();
+</script>
